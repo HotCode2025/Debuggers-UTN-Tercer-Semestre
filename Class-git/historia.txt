@@ -1,1 +1,2 @@
-Bienvenido mi nombre es Jairo
+Bienvenido mi nombre es Jairo 
+estoy estudiando programacion
