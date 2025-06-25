@@ -1,6 +1,6 @@
 # CLASE 1 MIÉRCOLES 
 >Lo primero de nuestras clases en Git Bash:
-<br>
+
 Abrimos la terminal de Git Bash en Window o la terminal de Ubuntu, tambien la terminal de Mac, y comenzamos con los siguientes comandos y creación de directorios</br>
 
 ```sh
@@ -59,13 +59,13 @@ mkdir Java
 
 mkdir JavaScript
 ```
-<br>
+
 Revisar y ejecutar cada comando, hacerlo como practica</br>
-<br>
+
 Profesor Ariel Betancud</br>
 
 # CLASE 2 MIÉRCOLES
-<br>Abrir git bash en Window o la terminal de Linux o de Mac: al abrir Git Bash hacerlo como administrador</br>
+Abrir git bash en Window o la terminal de Linux o de Mac: al abrir Git Bash hacerlo como administrador</br>
 
 ```sh
 touch vacio.txt #Crea un archivo con su extención: ESCRIBIR DENTRO
@@ -140,16 +140,16 @@ git commit -m "Mi segundo commit"
 git log historia.txt #Vemos toda la historia de este archivo, el número largo es el hash del commit
 
 ```
-<br>
+
 Revisar y ejecutar cada comando, hacerlo como practica</br>
-<br>
+
 Profesor Ariel Betancud</br>
 
 # CLASE 3 MIÉRCOLES
 >Analizar cambios en los archivos de tu proyecto Git parte 3
 
-<br>Ingresamos de la siguiente manera:</br>
-<br>
+Ingresamos de la siguiente manera:</br>
+
 Abrir git bash en Window o la terminal de Linux o de Mac: al abrir Git Bash hacerlo como administrador, en terminal también o usar sudo para permisos especiales.</br>
 
 ```sh
@@ -201,22 +201,23 @@ cd ..
 
 cd ..
 ```
+ Enlace a la documentación en GitHub de [MARKDOWN](https://docs.github.com/es/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax)
 
-<br>
+
 Revisar y ejecutar cada comando, hacerlo como practica</br>
-<br>
+
 Profesor Ariel Betancud</br>
 
 # CLASE 4 MIÉRCOLES
 
 >Ingresamos de la siguiente manera:
 
-<br>Abrir git bash en Window o la terminal de Linux o de Mac: al abrir Git Bash hacerlo como administrador, en terminal también o usar sudo para permisos especiales.</br>
+Abrir git bash en Window o la terminal de Linux o de Mac: al abrir Git Bash hacerlo como administrador, en terminal también o usar sudo para permisos especiales.</br>
 
-# TAREA -> AGREGAR LOS COMENTARIOS EN LOS COMANDOS, PARA SABER QUE PASA CON CADA UNO.
+* TAREA -> AGREGAR LOS COMENTARIOS EN LOS COMANDOS, PARA SABER QUE PASA CON CADA UNO.
 
 ```sh
-cd tecnicatura
+cd tecnicatura #ingresamos al directorio de trabajo
 
 cd class-git
 
@@ -226,7 +227,7 @@ touch historia.txt
 
 code .
 
-#Modificamos el archivo historia.txt colocando lo siguiente: Bienvenido     mi nombre es Ariel (coloca tu nombre)
+#Modificamos el archivo historia.txt colocando lo siguiente: Bienvenido mi nombre es Ariel (coloca tu nombre)
 
 ctrl + s
 
