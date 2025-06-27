@@ -1,6 +1,8 @@
+
 // Ejercicio para encontrar números pares
-let parImpar = 1;
-if(parImpar % 2 == 0){
+let numero = 8;
+
+if (numero % 2 == 0){
     console.log("Es un número PAR");
 }
 else{
@@ -8,12 +10,12 @@ else{
 }
 
 // Ejercicio: es mayor de edad
-let edad = 20, adulto = 18;
-if( edad >= adulto ){
-    console.log("Usted es una persona adulta");
+var edad = 18;
+if( edad >= 18){
+    console.log("Es mayor de edad");
 }
 else{
-    console.log("Usted es na persona menor de edad");
+    console.log("Es menor de edad");
 }
 
 //Ejercicio: Dentro de un rango
@@ -27,7 +29,8 @@ else{
 }
 
 // Ejercicio: Si el padre puede asistir al juego de su hijo
-let vacaciones = true, diaDescanso = false;
+let vacaciones = true;
+let diaDescanso = false;
 if(vacaciones || diaDescanso){
     console.log("El padre puede asistir al juego de su hijo")
 }
@@ -38,8 +41,8 @@ else{
 //Operador ternario
 let resultado2 = 3 > 2 ? "Verdadero" : "Falso";
 console.log(resultado2)
-let numero = 12;
-resultado2 = numero % 2 == 0 ? "Es un numero PAR" : "Es un numero IMPAR";
+let numero1 = 12;
+resultado2 = numero1 % 2 == 0 ? "Es un numero PAR" : "Es un numero IMPAR";
 console.log(resultado2)
 
 //Convertir String a Number
