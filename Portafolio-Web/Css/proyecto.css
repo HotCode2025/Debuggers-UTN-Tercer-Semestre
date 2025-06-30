@@ -4,19 +4,29 @@
     background: var(--fondo-proyecto);
 }
 
-.galeria-proyectos{
-display: flex;
-flex-wrap: wrap;
-gap: 1rem;
-justify-content: center;
+
+.galeria {
+  display: grid;
+  grid-template-columns: repeat(2, auto); /* 2 columnas */
+  justify-content: center;               /* Centrado horizontal */
+  gap: 20px;                              /* Espaciado entre imágenes */
 }
+
+.galeria img {
+  width: 200px; /* o el tamaño que prefieras */
+  height: auto;
+  border-radius: 8px; /* opcional: bordes redondeados */
+}
+
+
+
 
 .proyecto{
     background-color: rgb(53, 52, 52);
     border: 1px solid #ddd;
     border-radius: 5px;
     padding: 15px;
-    width: calc(33% - 40px); /*ajusta el ancho segun la cantidad de proyectos a mostrar*/
+    width: calc(100%); /*ajusta el ancho segun la cantidad de proyectos a mostrar*/
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     text-align: center;
 }
