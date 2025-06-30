@@ -1,0 +1,146 @@
+/*Definiendo variables de color en css*/
+:root {
+    --body-bg-color: rgb(31, 12, 12);
+    --text-color: white;
+    --colorh1-color: rgb(215,211,211);
+}
+
+/*Aplicando variable creada en el root al body de nuestra web*/
+body {
+    display: flex;
+    flex-direction: column;
+    background: var(--body-bg-color); 
+    color: var(--text-color); 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+    }
+
+h1, h2 {
+    color: var(--colorh1-color);
+}
+
+.titulo {
+    text-align: left; 
+    margin: 2rem 0; 
+    font-size: 2rem; 
+    font-weight: bold; 
+}
+
+/* Estilos para la navegación */
+.navigation {
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    gap: 3rem; 
+    list-style: none; 
+    margin: 0 0 2rem 0; 
+    padding: 0; 
+}
+
+.navigation li {
+    font-size: 1rem; 
+    width: 100px; 
+    text-align: center; 
+    padding: 0.5rem; 
+    border-radius: 0.5rem; 
+    background: #f0eaea1a; 
+    box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.5); 
+}
+
+/* Bloque imagen + título principal arriba */
+.perfil-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    color: var(--colorh1-color);
+}
+
+.img-perfil {
+    border-radius: 50%;
+}
+
+/* Estilo para enlaces */
+a {
+    text-decoration: none;
+    color: rgb(236, 212, 212);
+}
+
+/*Todo lo que contiene el main*/
+.main-container{
+    display: flex;
+    flex-direction: column;
+}
+/* Media Queries agrupadas */
+
+/* Celulares (pantallas pequeñas, hasta 767px) */
+@media (max-width: 767px) {
+    .titulo {
+        text-align: center;
+        font-size: 1.5rem;
+    }
+
+    .navigation {
+        flex-direction: column; 
+        gap: 1rem;
+        align-items: center;
+    }
+
+    .perfil-header h2 {
+        font-size: 1.2rem;
+        text-align: center;
+        padding: 0 1rem;
+    }
+}
+
+
+/* Tableta (Pantallas medianas, entre 768px y 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .titulo {
+        justify-content: center;
+    }
+
+    .navigation {
+        gap: 2rem;
+        justify-content: center;
+    }
+}
+
+/* Escritorio (pantallas grandes desde 1024px en adelante) */
+@media (min-width: 1024px) {
+    .titulo {
+        justify-content: flex-start;
+    }
+
+    .navigation {
+        gap: 3rem;
+        justify-content: flex-end;
+        margin: 3rem;
+    }
+
+}
+
+/* Sección "Sobre mí" */
+.sobremi {
+    display: flex;
+    justify-content: center; /*Esto centra el elemento*/
+}
+
+.container-sobremi {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%; /*Ancho*/
+    padding: 2rem;
+    margin-top: 5rem;/*Margen a lo alto*/
+    font-size: large;/*Tamaño de la fuente*/
+    line-height: 2.5rem;/*Espaciado entre los parrafos del texto*/
+    font-weight: 300;
+    font-style: italic;
+    gap: 5rem;
+    color: azure;
+    background-color: rgba(255, 255, 255, 0.07);
+    border-left: 4px solid #00cccc;
+    border-radius: 6px;
+}

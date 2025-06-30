@@ -1,0 +1,19 @@
+.formulario-responsivo {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.formulario-responsivo iframe {
+    width: 100%;
+    max-width: 800%;
+    height: 700px; /* o 600px, probar */
+    border: none;
+}
+
+@media screen and (max-width: 600px) {
+    .formulario-responsivo iframe {
+        height: 1500px; /* Ajustalo si el form requiere más scroll en móviles */
+    }
+}

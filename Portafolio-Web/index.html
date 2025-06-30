@@ -1,21 +1,46 @@
+<!--Es de buenas practicas comenzar a estructurar nuestros archivos ordenando la estructura para el desarroyo
+en este caso el portafolio web, por lo tanto esta estructura puede variar segun nuestro proyecto. 
+-->
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <!-- Especifica el idioma del contenido del documento -->
+    <meta http-equiv="content-language" content="es">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--agregamos dos etiquetas meta para el Seo de la clase anterior mas otra etiqueta meta del autor-->
+    <meta name="description" content="Nombre del Grupo o alumno, creado por nombre del grupo especializado en [Programacion]">
+    <meta name="keywords" content="portafolio,desarrollador web,[programador],proyectos,contactos">
+    <meta name="author" content="Tu Nombre">
     <title>Portafoli Web</title>
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./Css/style.css">
 </head>
 <body>
     <header>
-        <h1>Jairo Wilson Ubilla - Tecnico en Programacion</h1>
+        <h1 class="titulo"> Jairo Wilson Ubilla - Tecnico en Programacion</h1>
         <img src="" alt="">
         <nav>
+            <!--Agregue nuevos enlaces para nuestro portafolio web-->
             <ul class="navigation">
                 <li><a href="#sobremi">Sobre Mi</a></li>
-                <li><a href="proyectos">Proyectos</a></li>
+                <li><a href="#experiencia">Experiencia</a></li>
+                <li><a href="#estudios">Mis Estudios</a></li>
+                <li><a href="#proyectos">Proyectos</a></li>
+                <li><a href="#contacto">Contactame</a></li>
             </ul>
         </nav>
     </header>
-</body>
+    <main>
+        <section class="sobremi">
+            <article class="container-sobremi">
+                <h2>
+                    Soy <b>Técnico Univercitario en Progrmacion<b> y estudio en la Universidad Tecnológica Nacional (UTN).
+                    Me gusta resolver problemas usando la lógica y escribir código claro y eficiente. 
+                    Siempre busco aprender cosas nuevas y mejorar mis habilidades técnicas.
+                </h2>
+            </article>
+        </section>
+    </main>
+</body
 </html>
