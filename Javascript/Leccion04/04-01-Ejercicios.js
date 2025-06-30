@@ -65,3 +65,98 @@ switch(mes){//No solo se pueden utilizar numeros, tambien cadenas
         estacion = "Valor incorrecto";
 }
 console.log("Bienvenido a la estacion de: " + estacion);
+
+//Ampliando el uso de var let y const
+
+/*
+Con var puedes reasignar en cualquier momento
+este forma parte del ambito global
+Un error es que se sobreescriba
+*/
+
+var nombre = "Ariel";
+nombre = "Osvaldo";
+console.log(nombre);
+
+function saludar(){
+    var nombre3 = "Natalia";
+    console.log(nombre3);
+}
+//console.log(nombre3);//Aqui no lee el dato de la funcion
+
+if(true){
+    var edad = 34;
+    console.log(edad);
+}
+console.log(edad);//En la funcion funciono correctamete, en le estructura if fallo
+
+/*
+let: esta puede ser reasignada en cualquier momento 
+la diferencia es que su ambito es de bloque,
+solo disponible dentro de un bloque de llaves 
+o dentro de una funcion
+*/ 
+
+function saludar(){
+    let nombre2 = "Ariel";
+    console.log(nombre2);
+}
+//console.log(nombre2);
+
+if(true){
+    let edad2 = 33;
+    console.log(edad2);
+}
+//console.log(edad2);
+
+/*
+const se utiliza para valores constantes que no pueden ser reasignados
+*/
+
+const fechaNacimiento = 2006;
+console.log(fechaNacimiento);
+//fechaNacimiento = 2003;
+//console.log(fechaNacimiento);//Solo se ejecuta el console anterior
+
+
+//Evitar repetir tu codigo
+//Dry don´t repeat yourself
+//let days = ["Lunes","Martes","Miercoles","Jueves","Viernes","Sabado","Domingo"];
+let days = 1;
+switch (days) {
+    case 1:
+        console.log("Hoy es Lunes");
+        break;
+    case 2:
+        console.log("Hoy es Martes");
+        break
+    case 3:
+        console.log("Hoy es Miercoles");
+        break
+    case 4:
+        console.log("Hoy es Jueves");
+        break
+    case 5:
+        console.log("Hoy es Viernes");
+        break
+    case 6:
+        console.log("Hoy es Sabado");
+        break
+    case 7:
+        console.log("Hoy es Domingo");
+        break
+    default:
+        console.log("Error en el ingreso del dia de la semana");
+        break;
+}
+
+//Esta es la opcion mejorada
+
+let days2 = ["Lunes","Martes","Miercoles","Jueves","Viernes","Sabado","Domingo"];
+function getDay(n){
+    if(n < 1 || n > 7){
+        throw new Error("out of range");
+    }
+    return days2[n-1];
+}
+console.log(getDay(3));
