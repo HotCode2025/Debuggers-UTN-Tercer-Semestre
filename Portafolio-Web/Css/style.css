@@ -57,9 +57,7 @@ h1, h2 {
     color: var(--colorh1-color);
 }
 
-.img-perfil {
-    border-radius: 50%;
-}
+
 
 /* Estilo para enlaces */
 a {
@@ -119,28 +117,4 @@ a {
         margin: 3rem;
     }
 
-}
-
-/* Sección "Sobre mí" */
-.sobremi {
-    display: flex;
-    justify-content: center; /*Esto centra el elemento*/
-}
-
-.container-sobremi {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 50%; /*Ancho*/
-    padding: 2rem;
-    margin-top: 5rem;/*Margen a lo alto*/
-    font-size: large;/*Tamaño de la fuente*/
-    line-height: 2.5rem;/*Espaciado entre los parrafos del texto*/
-    font-weight: 300;
-    font-style: italic;
-    gap: 5rem;
-    color: azure;
-    background-color: rgba(255, 255, 255, 0.07);
-    border-left: 4px solid #00cccc;
-    border-radius: 6px;
 }

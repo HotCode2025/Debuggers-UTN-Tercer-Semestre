@@ -1,6 +1,102 @@
+/* Sección "Sobre mí" */
+.sobremi {
+    display: flex;
+    justify-content: center; /*Esto centra el elemento*/
+}
+
+.container-sobremi {
+    display: flex;
+    align-items: center;
+    width: 50%; /*Ancho*/
+    padding: 2rem;
+    margin-top: 5rem;/*Margen a lo alto*/
+    font-size: large;/*Tamaño de la fuente*/
+    line-height: 2.5rem;/*Espaciado entre los parrafos del texto*/
+    font-style: oblique;
+    gap: 5rem;
+    color: azure;
+
+}
+
+.img-perfil {
+    border-radius: 50%;
+}
+
+.experiencia {
+    display: flex;
+    justify-content: center;
+    padding: 2rem;
+    color: azure;
+}
+
+.container-experiencia {
+    width: 100%;
+    padding: 2rem;
+    margin-top: 5rem;
+    line-height: 2.5rem;
+    font-size: large;
+    margin: 8rem;
+}
+
+.estudios{
+    display: flex;
+    justify-content: center;
+    padding: 2rem;
+    color: azure;
+}
+
+.container-estudios{
+    width: 100%;
+    padding: 2rem;
+    margin-top: 5rem;
+    line-height: 2.5rem;
+    font-size: large;
+    margin: 8rem;
+}
 
 
+/*Celular(Pantallas pequeñas, hasta 767px)*/
+@media (max-width: 767px){
+    .container-estudios{
+        width: 100%;
+        margin: 0rem;
+    }
+    .estudios {
+        width: 100%;
+        padding: 1rem;
+        margin-top: 1rem;
+        font-size: small;
+    }
+}
 
+/*Celular (Pantallas pequeñas hasta 767px)*/
+@media (max-width: 767px) {
+    .container-experiencia {
+        width: 100%;
+        margin: 0;
+        font-size: small;
+    }
+
+    .experiencia {
+        width: 100%;
+        padding: 1rem;
+        margin-top: 1rem;
+    }
+}
+
+/*Tableta (Pantallas medianas, entre 768px y 1023)*/
+@media (min-width: 768px) and (max-width: 1023px) {
+    .experiencia {
+        width: 75%;
+    }
+}
+
+/* Escritorio (pantallas grandes desde 1024px en adelante) */
+@media (min-width: 1024px) {
+    .experiencia {
+        width: 75%;
+    }
+}
 
 /* Celulares (pantallas pequeñas, hasta 767px) */
 @media (max-width: 767px){
@@ -28,5 +124,9 @@
         padding: 2rem;
         margin-top: 5rem;
         font-size: large;
+        flex-direction: row;
     }
 }
+
+
+
