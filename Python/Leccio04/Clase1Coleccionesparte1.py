@@ -1,5 +1,7 @@
 # lista = Ariel, Liliana, Natalia, Osvaldo
+#Colecciones en Python
 
+# Las listas el lo que se conoce en otros lenguajes como arreglos o vectores
 nombres = ['Naty','Osvaldo','Lily','Ariel']
 
 # Buscar elemento de la lista de adelante para atras
@@ -34,6 +36,11 @@ print(len(nombres)) # le pasamos como parametro la lista
 
 # Agregamos un elemento
 nombres.append('Marcelo')
+nombres.append([1, 2, 3])
+nombres.append(True)
+nombres.append(10.45)
+nombres.append([4, 5])
+nombres.append(7)
 print(nombres)
 
 # Insertar un elemento en un indice especifico
@@ -59,5 +66,5 @@ nombres.clear()
 print(nombres)
 
 #Eliminar la lista
-del nombres
-print(nombres) # Aqui nos mostrara un error
+#del nombres
+#print(nombres) # Aqui nos mostrara un error

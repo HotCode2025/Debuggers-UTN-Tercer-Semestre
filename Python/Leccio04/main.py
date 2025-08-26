@@ -1,5 +1,7 @@
 # lista = Ariel, Liliana, Natalia, Osvaldo
+# Colecciones en Python
 
+# Las listas el lo que se conoce en otros lenguajes como arreglos o vectores
 nombres = ['Naty','Osvaldo','Lily','Ariel']
 
 # Buscar elemento de la lista de adelante para atras
