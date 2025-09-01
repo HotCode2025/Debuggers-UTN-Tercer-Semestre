@@ -68,3 +68,4 @@ print(nombres)
 #Eliminar la lista
 #del nombres
 #print(nombres) # Aqui nos mostrara un error
+

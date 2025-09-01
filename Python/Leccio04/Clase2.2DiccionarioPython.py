@@ -55,59 +55,42 @@ print(diccionario)
 # Eliminar diccionario
 del diccionario # El diccionario se borro
 
+# Clase 3.2 Repaso Diccionarios
+diccionarioNuevo = {'Azul': 'Blue', 'Rojo': 'Red', 'Verde': 'Green', 'Amarillo': 'Yellow'}
+print(diccionarioNuevo)
 
-# 2.3 Repaso y más conceptos de listas
+# Como eliminar
+del (diccionarioNuevo['Azul'])
+print(diccionarioNuevo)
 
-# Concatenamos listas
-lista1 = [1, 2, 3, 1]
-lista2 = [4, 5, 6, 1]
-lista3 = lista1+lista2 # Concatenamos
-print(lista3)
+# Los diccionarios pueden almacenar diferente tipos de datos
+diccionario2 = {'Ariel': {'Edad' : 40, 'Altura' : 1.83}, 'Osvaldo': [45, 1.85], 'Natalia' : [35, 1.67]}
+print(diccionario2)
 
-lista3.extend([7, 8, 9, 1]) # Funcion para agregar varios elementos a una lista
-print(lista3)
+# Clase 3.3 Ejercicio con Diccionario y Tarea
+seleccionArgentina = {
+    10: {'Nombre':'Lionel Messi', 'Edad': 35, 'Altura': 1.70, 'Precio': '50 Millones', 'Posicion': 'Extremo Derecho'},
+    11: {'Nombre':'Angel Di Maria', 'Edad': 34, 'Altura': 1.80, 'Precio': '12 Millones', 'Posicion': 'Extremo Derecho'},
+    24: {'Nombre':'Paulo Dybala', 'Edad': 28, 'Altura': 1.77, 'Precio': '35 Millones', 'Posicion': 'Media Punta'},
+    19: {'Nombre':'Nicolas Otamendi', 'Edad': 34, 'Altura': 1.83, 'Precio': '3.5 Millones', 'Posicion': 'Defensa Central'},
+     1: {'Nombre':'Franco Armani', 'Edad': 35, 'Altura': 1.89, 'Precio': '3.5 Millones', 'Posicion': 'Portero'},
+}
+print(seleccionArgentina)
+print(seleccionArgentina[10])
+print(seleccionArgentina.values())
 
-print(lista3.index(5)) # Funcion para ubicar en que indice esta el valor ingresado
-# print(lista3.index(0)) # Esto daria un error por no ser el elemento parte de la lista
+for llave in seleccionArgentina:
+    print(llave)
 
-# Como saber cuantos valores repetidos hay dentro de una lista
-print(lista3.count(1)) # Cuenta cuantos valores iguales hay dentro de la lista
+for valor in seleccionArgentina.values():
+    print(valor)
 
-# Para poner al reves una lista
-lista3.reverse()
-print(lista3)
+for llave, valor in seleccionArgentina.items():
+    print(llave, valor)
 
-# Para que una lista se multiplique repitiendo sus elementos
-lista3 = lista3 * 2
-print(lista3)
-
-# Metodos de ordenamiento, en python es una funcion
-lista3.sort() # Ordena los elementos ascendentemente
-print(lista3)
-lista3.sort(reverse=True) # Ordena descendentemente
-print(lista3)
-
-
-# 2.4 Repaso y más conceptos de Tuplas
-#Repaso de tuplas
-tupla = (4,'Hola', 6.78, [1, 2, 78], 4, 'Hola') # Puede tener diferentes tipos de dstos dentro
-print(tupla)
-
-print(4 in tupla) # Accion booleana, su respuesta es de tipo booleana
-print(4 not in tupla)
-# Lo que podemos usar dentro de tuplas son: index, count, len
-# En tuplas se puede convertir de tupla a lista y de lista a tupla
-
-
-
-
-
-
-
-
-
-
-
+# Como tarea agregar por lo menos 4 jugadores mas al diccionario: seleccionArgentina
+print('Tenemos cargados en el diccionario la cantidad de jugadores:', end='')
+print(len(seleccionArgentina))
 
 
 
