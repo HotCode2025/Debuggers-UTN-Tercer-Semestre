@@ -1,3 +1,4 @@
+# 11.5 Método dunder __str__()
 from Persona import *
 
 persona1 = Persona('Pedro', 35)
