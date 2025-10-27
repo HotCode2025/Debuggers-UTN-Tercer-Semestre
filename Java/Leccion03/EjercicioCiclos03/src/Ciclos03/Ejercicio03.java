@@ -1,4 +1,4 @@
-/*
+/* 3.1 Ejercicio con Ciclos 3 y clase Scanner y JOptionPane
 Ejercicio 3:Leer numeros hasta que se introduzca un cero
 Para cada uno indica si es par o impar.
 Primero lo haremos con la claseScanner

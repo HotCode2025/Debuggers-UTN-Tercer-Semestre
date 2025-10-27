@@ -1,4 +1,5 @@
-/* Ejercicio 7: pedir números hasta que se introduzca uno negativo
+/* 4.7 Ejercicio con Ciclos 7 Con la Clase Scanner y JOptionPane
+Ejercicio 7: pedir números hasta que se introduzca uno negativo
 Calcular la media
  */
 package Ciclos07;

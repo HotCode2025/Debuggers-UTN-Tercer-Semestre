@@ -1,4 +1,6 @@
-/* Ejercicio 2: Leer un número e identificar si es positivo o
+/* 
+2.2 Ejercicio 2 de ciclos en Java con la clase Scanner y con la clase JOptionPane
+Ejercicio 2: Leer un número e identificar si es positivo o
 negativo. El proceso se repetira hasta que se introduzca 
 un cero 0
 Hacer este ejercicio con la clase Scanner,

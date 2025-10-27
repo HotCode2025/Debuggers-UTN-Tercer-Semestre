@@ -1,4 +1,5 @@
-/* Ejercicio 1:Leer un número y mostrar su cuadrado, repetir 
+/* 2.1 Ejercicio 1 de ciclos en Java con la clase Scanner
+Ejercicio 1:Leer un número y mostrar su cuadrado, repetir 
 el proceso hasta que se introduzca un número negativo
 */
 package EjerciciosEnJava;

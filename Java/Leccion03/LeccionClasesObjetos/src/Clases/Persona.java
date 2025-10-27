@@ -1,4 +1,4 @@
-
+// 2.6 Crear clases en Java
 package Clases;
 
 public class Persona {
@@ -6,7 +6,7 @@ public class Persona {
     String nombre;
     String apellido;
     
-    // Métodos de la clase (Acciones)
+    // 4.1 Métodos de la clase (Acciones)
     public void obtenerInformacion(){
         System.out.println("Nombre: "+nombre);
         System.out.println("Apellido: "+apellido);

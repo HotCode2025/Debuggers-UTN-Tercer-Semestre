@@ -1,4 +1,4 @@
-/*
+/*3.3 Ejercicio con Ciclos 5 y clase Scanner y JOptionPane
 Ejercicio 5: Realizar un juego para adivinar un numero,
 para ello generar un numero aleatorio entre 0-100, y
 luego ir pidiendo numeros indicando "es mayor" o

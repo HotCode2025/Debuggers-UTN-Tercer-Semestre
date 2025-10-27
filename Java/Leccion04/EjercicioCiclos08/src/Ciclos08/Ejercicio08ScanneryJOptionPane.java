@@ -1,4 +1,4 @@
-/*
+/* 
 5.7 Ejercicio Ciclos 08 con Scanner y JOptionPane
 Ejercicio 8: Pedir un número N y mostrar todos los números
 del 1 al N.

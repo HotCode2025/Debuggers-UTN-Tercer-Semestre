@@ -1,4 +1,4 @@
-/*
+/* 4.5 Ejercicio con Ciclos 6 Clase Scanner y JOptionPane
 Ejercicio 6: Pedir numeros hasta que se teclee un 0
 mostrar la suma de todos los numeros introducidos
 con JOptionPane
