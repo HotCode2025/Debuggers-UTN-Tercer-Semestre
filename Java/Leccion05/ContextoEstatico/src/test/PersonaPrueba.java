@@ -17,9 +17,11 @@ public class PersonaPrueba {
         System.out.println(personaP1.getContador());
     }
 
+    //8.7 Ejercicio con contexto estático
     public static void imprimir(Persona persona) {
         System.out.println("persona = " + persona);
     }
+    private int contador;
 
     public int getContador() {
         imprimir(new Persona("Alison"));
