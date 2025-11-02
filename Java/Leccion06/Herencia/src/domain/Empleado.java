@@ -8,10 +8,16 @@ public class Empleado extends Persona {
     private static int contadorEmpleados; //Es para incrmentar
     
     //Constructor
-
-    public Empleado(String nombre, double sueldo) {
-        super(nombre);
+    //10.1 Sobrecarga de constructores
+    
+    public Empleado() { // Constructor 1
         this.idEmpleado = ++Empleado.contadorEmpleados;
+    }
+
+    public Empleado(String nombre, double sueldo) { //Constructor 2
+        //super(nombre);
+        this(); //Estamos llamando desde aqui al constructor vacio(llamar a un costructor interno)
+        this.nombre = nombre;
         this.sueldo = sueldo;
     }
 
