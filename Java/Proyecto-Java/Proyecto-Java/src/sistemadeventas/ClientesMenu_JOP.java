@@ -42,7 +42,10 @@ public class ClientesMenu_JOP {
                         System.out.println("Función: Modificar los datos de un Clientes...");
                         modificarCliente();
                         break;
-
+                    case 6:
+                        System.out.println("Función: Eliminar Cliente...");
+                        eliminarCliente();
+                        break;
                     case 0:
                         System.out.println("Volviendo al Menú Principal.");
                         break;
@@ -65,6 +68,7 @@ public class ClientesMenu_JOP {
         System.out.println("  3. Buscar Cliente por ID");
         System.out.println("  4. Buscar Cliente por Nombre");
         System.out.println("  5. Modificar Cliente");
+        System.out.println("  6. Eliminar Cliente");
         System.out.println("  0. Volver al Menú Principal");
         System.out.println("=============================");
         System.out.print("Selecciona una opción: ");
@@ -272,6 +276,50 @@ public class ClientesMenu_JOP {
 
             mensaje.append("</pre></html>");
             JOptionPane.showMessageDialog(null, mensaje.toString(), "Resultados de Búsqueda", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+    private static void eliminarCliente() {
+        String inputId = JOptionPane.showInputDialog(null, "Ingresa el ID del cliente a eliminar:", "Eliminar Cliente", JOptionPane.QUESTION_MESSAGE);
+
+        if (inputId == null || inputId.trim().isEmpty()) {
+            return; // Usuario canceló o no ingresó nada
+        }
+
+        try {
+            int idEliminar = Integer.parseInt(inputId);
+
+            // 1. Buscar cliente para mostrar confirmación
+            Clientes clienteAEliminar = dao.buscarPorId(idEliminar);
+
+            if (clienteAEliminar == null) {
+                JOptionPane.showMessageDialog(null, "No se encontró ningún cliente con ID: " + idEliminar, "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // 2. Pedir confirmación
+            int confirmacion = JOptionPane.showConfirmDialog(null,
+                    "¿Estás seguro de que deseas eliminar al cliente:\n"
+                    + "ID: " + clienteAEliminar.getId() + "\n"
+                    + "Nombre: " + clienteAEliminar.getNombre() + "?",
+                    "Confirmar Eliminación",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.WARNING_MESSAGE);
+
+            if (confirmacion == JOptionPane.YES_OPTION) {
+                // 3. Llamar al DAO para eliminar
+                if (dao.eliminarCliente(idEliminar)) {
+                    JOptionPane.showMessageDialog(null, "Cliente eliminado exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Error al intentar eliminar el cliente.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "ERROR: El ID debe ser un número entero.", "Error de Entrada", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Ocurrió un error inesperado: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 

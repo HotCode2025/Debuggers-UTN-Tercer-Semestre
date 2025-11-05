@@ -132,4 +132,26 @@ public class ClientesDAO {
         cliente.setDireccion(rs.getString("direccion"));
         return cliente;
     }
+    
+    //---------------------------------------------------------------------------------------------------------------
+    // Elimina un cliente por si ID
+    public boolean eliminarCliente(int id) {
+        boolean eliminado = false;
+        String sql = "DELETE FROM clientes WHERE id = ?";
+        
+        try (Connection conn = ConexionDB.getConnection();
+            PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            
+            pstmt.setInt(1, id);
+            
+            // executeUpdate retorna el numero de filas afectadas
+            // si es mayor que 0, significa que si borró algo
+            int filasAfectadas = pstmt.executeUpdate();
+            eliminado = (filasAfectadas > 0);
+        } catch (SQLException e) {
+            System.err.println("Error al eliminar cliente co ID " + id + ": " + e.getMessage());
+        }
+        
+        return eliminado;
+    } 
 }
