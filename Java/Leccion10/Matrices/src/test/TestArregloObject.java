@@ -17,7 +17,7 @@ public class TestArregloObject {
         }
 
         //Trabajamos con arreglos en la sintaxisreumida
-        String frutas[] = {"Banana", "Pera", "durazno"};
+        String frutas[] = {"Banana", "Pera", "Durazno"};
         for (int i = 0; i < frutas.length; i++) {
             System.out.println("frutas " + i + " = " + frutas[i]);
         }

@@ -38,6 +38,11 @@ public class Clientesmenu {
                         System.out.println("Función: Modificar los datos de un Clientes...");
                         modificarCliente();
                         break;
+                        
+                    case 6:
+                        System.out.println("Eliminar Cliente");
+                        eliminarCliente();
+                        break;
 
                     case 0:
                         System.out.println("Volviendo al Menú Principal.");
@@ -189,6 +194,48 @@ public class Clientesmenu {
             resultados.forEach(System.out::println);
         }
     }
+    
+    //------------------------------------------------------------------------------------------------------------------
+    private static void eliminarCliente(){
+        System.out.println("\n--- ELIMINAR CLIENTE ---");
+        System.out.println("Ingresa el ID del cliente a eliminar: ");
+        
+        int id;
+        try {
+            id = Integer.parseInt(scanner.nextLine());
+        } catch (NumberFormatException e){
+            System.out.println("ERROR: El ID debe ser un número entero.");
+            return;
+        }
+        
+        // Buscar y mostrar el cliente antes de borrar
+        Clientes cliente = dao.buscarPorId(id);
+        
+        if (cliente == null){
+            System.out.println("No se encontró ningún cliente con el ID: " + id);
+            return;
+        }
+        
+        System.out.println("\nSe eliminará al siguiente cliente:");
+        System.out.println(cliente); 
+        
+        System.out.print("\n¿Estás seguro de que deseas eliminarlo? (S/N): ");
+        String confirmacion = scanner.nextLine();
+
+        if (confirmacion.equalsIgnoreCase("S")) {
+            try {
+                // Llamamos al DAO para que ejecute la baja
+                dao.eliminarCliente(id); 
+                System.out.println("Cliente eliminado correctamente.");
+            } catch (Exception e) {
+                System.err.println("Error al intentar eliminar el cliente: " + e.getMessage());
+            }
+        } else {
+            System.out.println("Operación cancelada.");
+        }
+    }
+        
+    
 
     private static String cortarCadena(String texto, int ancho) {
         if (texto == null) {

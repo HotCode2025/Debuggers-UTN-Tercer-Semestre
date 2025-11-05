@@ -20,7 +20,7 @@ public class ConexionDB {
      // Definimos los datos de conexion a la base: URL (driver, direccion, puerto y nombre de la base), USUARIO y CLAVE
     private static final String URL = "jdbc:mysql://localhost:3306/sistemaventas_db";
     private static final String USUARIO = "root";
-    private static final String CLAVE = "vertrigo";
+    private static final String CLAVE = "549204290Alison";
 
     /**
      * Establece y devuelve una conexión activa a la base de datos MySQL.
