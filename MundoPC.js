@@ -10,7 +10,7 @@ class DispositivoEntrada{
         this._tipoEntrada = tipoEntrada;
     }
     get marca(){
-        return this._marca = marca;
+        return this._marca;
     }
     set marca(marca){
         this._marca = marca;
@@ -32,7 +32,7 @@ class Monitor{
         return this._idMonitor;
     }
     toString(){
-        return 'Monitor: [idMonitor: ${this._idMonitor}, marca: ${this._marca}, tamaño: ${this._tamanio}]';
+        return `Monitor: [idMonitor: ${this._idMonitor}, marca: ${this._marca}, tamaño: ${this._tamanio}]`;
     }
 }
 
@@ -55,14 +55,14 @@ class Teclado extends DispositivoEntrada{
         return this._idTeclado;
     }
     toString(){
-        return 'Teclado: [idTeclado: ${this._idTeclado}, tipoEntrada: ${this._tipoEntrada}, marca: ${this._marca}]';
+        return `Teclado: [idTeclado: ${this._idTeclado}, tipoEntrada: ${this._tipoEntrada}, marca: ${this._marca}]`;
     }
 }
 
 let teclado1 = new Teclado('Bluetooth', 'Redragon');
 console.log(teclado1.toString());
 let teclado2 = new Teclado('USB', 'Razer');
-console.log(raton2.toString());
+console.log(teclado2.toString());
 
 
 // ----------------------------------------------------------------- //
@@ -78,7 +78,7 @@ class Raton extends DispositivoEntrada{
         return this._idRaton;
     }
     toString(){
-        return 'Raton: [idRaton: ${this._idRaton}, tipoEntrada: ${this._tipoEntrada}, marca: %{this._marca}]';
+        return `Raton: [idRaton: ${this._idRaton}, tipoEntrada: ${this._tipoEntrada}, marca: ${this._marca}]`;
     }
 }
 
@@ -100,16 +100,16 @@ class Computadora {
         this._raton = raton;
     }
     toString(){
-        return 'Computadora ${this._idComputadora}: ${this._nombre}\n ${this._monitor}\n ${this._teclado}\n ${this._raton}';
+        return `Computadora ${this._idComputadora}: ${this._nombre}\n ${this._monitor}\n ${this._teclado}\n ${this._raton}`;
     }
 }
 
 let computadora1 = new Computadora('Dell', monitor1, teclado1, raton1);
 console.log(computadora1.toString());
-console.log('${computadora1}');
+console.log(`${computadora1}`);
 let computadora2 = new Computadora('Lenovo', monitor2, teclado2, raton2);
 console.log(computadora2.toString());
-console.log('${computadora2}');
+console.log(`${computadora2}`);
 
 // ----------------------------------------------------------------- //
 
@@ -131,9 +131,9 @@ class Orden {
     mostrarOrden(){
         let computadorasOrden = '';
         for(let computadora of this._computadoras){
-            computadorasOrden += '\n${computadora}';
+            computadorasOrden += `\n${computadora}`;
         }
-        console.log('Orden: ${this._idOrden}, Computadoras: ${computadorasOrden}');
+        console.log(`Orden: ${this._idOrden}, Computadoras: ${computadorasOrden}`);
     }
 }
 let orden1 = new Orden();
