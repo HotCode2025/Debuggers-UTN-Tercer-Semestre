@@ -6,7 +6,6 @@ try:
     archivo.write('como por ejemplo: Acción, emoción, pasión\n')
     archivo.write('las letras son: \nr read leer, \na append anexa, \nw write escribe, \nx crea un archivo \n')
     archivo.write('t esta es para texto o text, \nb archivos binarios, \nw+ lee y escribe \nr+ escribe y lee \n')
-    archivo.write('Saludos a todos los alumnos de la tecnicatura \n')
     archivo.write('Con esto terminamos')
 
 except Exception as e:
