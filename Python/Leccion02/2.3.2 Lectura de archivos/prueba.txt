@@ -10,5 +10,4 @@ t esta es para texto o text,
 b archivos binarios, 
 w+ lee y escribe 
 r+ escribe y lee 
-Saludos a todos los alumnos de la tecnicatura 
 Con esto terminamos
