@@ -2,7 +2,7 @@
 
 ## **Bienvenido seas al repositorio del Tercer Semestre de nuestro grupo.** ✳️  
 
-❗ **INTEGRANTES DEL GRUPO**
+###❗ **INTEGRANTES DEL GRUPO**
 
 ```
  - ENZO LEONEL NAVARRO 👦 
@@ -12,14 +12,14 @@
  - FEDERICO MARTINEZ 👨  
  - JAIRO WILSON UBILLA 👨
 ```
-❗**Encontrarás aqui:**
+### ❗**Encontrarás aqui:**
 
      - Una carpeta que contiene todos los archivos y tareas especiales de *Python*
      - Una carpeta que contiene todos los archivos y tareas especiales de *Java*
      - Una carpeta que contiene todos los archivos y tareas especiales de *JavaScript*
      - Una carpeta que contiene todos los avances que se realizan dentro del *Proyecto Final Python*
 
-❗ **Reglas del repositorio⬇️**
+###❗ **Reglas del repositorio⬇️**
 
    1. NADIE (sin excepción) puede realizar cambios dentro del repositorio si no es parte del grupo.
    2. Todos los cambios realizados deben ser aprobados por el Scrum Master de esa semana.
@@ -39,7 +39,7 @@
 
 ```
 
-❗ **Forma de trabajo (Metodo Scrum)**
+### ❗ **Forma de trabajo (Metodo Scrum)**
 
 Para poder trabajar aplicando el ```Metodo Scrum```, decidimos trabajar siempre 
 bajo una jerarquía basada en el conocimiento sobre el trabajo en GitHub, combinado con
@@ -50,7 +50,9 @@ Adoptamos la siguiente metodología:
 - Tech Lead: Figura que se encarga de supervisar el funcionamiento correcto de toda la organización, a fin de minimizar errores y corregirlos de forma temprana.
 - Scrum Master: Encargado de llevar adelante la organización mediante Sprints. Sus tareas son crear las Issues para cada programador y controlar que todas las actividades sean resueltas para la fecha establecida.
 
+### ❗ Documentación (WIKIS)
 
+[Planificación de Clases](https://github.com/HotCode2025/Debuggers-UTN-Tercer-Semestre/wiki/Planificaci%C3%B3n-de-clases)
 
 
 
