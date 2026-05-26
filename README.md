@@ -19,7 +19,7 @@
      - Una carpeta que contiene todos los archivos y tareas especiales de *JavaScript*
      - Una carpeta que contiene todos los avances que se realizan dentro del *Proyecto Final Python*
 
-###❗ **Reglas del repositorio⬇️**
+### ❗ **Reglas del repositorio⬇️**
 
    1. NADIE (sin excepción) puede realizar cambios dentro del repositorio si no es parte del grupo.
    2. Todos los cambios realizados deben ser aprobados por el Scrum Master de esa semana.
