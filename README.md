@@ -39,6 +39,17 @@
 
 ```
 
+❗ **Forma de trabajo (Metodo Scrum)**
+
+Para poder trabajar aplicando el ```Metodo Scrum```, decidimos trabajar siempre 
+bajo una jerarquía basada en el conocimiento sobre el trabajo en GitHub, combinado con
+una rotación para que todos puedan continuar creciendo dentro de la plataforma. 
+
+Adoptamos la siguiente metodología:
+
+- Tech Lead: Figura que se encarga de supervisar el funcionamiento correcto de toda la organización, a fin de minimizar errores y corregirlos de forma temprana.
+- Scrum Master: Encargado de llevar adelante la organización mediante Sprints. Sus tareas son crear las Issues para cada programador y controlar que todas las actividades sean resueltas para la fecha establecida.
+
 
 
 
