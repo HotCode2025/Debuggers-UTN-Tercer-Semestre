@@ -2,7 +2,7 @@
 
 ## **Bienvenido seas al repositorio del Tercer Semestre de nuestro grupo.** ✳️  
 
-###❗ **INTEGRANTES DEL GRUPO**
+### ❗ **INTEGRANTES DEL GRUPO**
 
 ```
  - ENZO LEONEL NAVARRO 👦 
