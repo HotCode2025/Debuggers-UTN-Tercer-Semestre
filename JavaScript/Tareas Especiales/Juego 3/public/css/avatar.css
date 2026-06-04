@@ -1,0 +1,103 @@
+body {
+    margin: 0;
+    padding: 5px;
+    background-color: #f0f4f8;
+    font-family: sans-serif;
+    display: flex;
+    flex-direction: column; 
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+h1 {
+    color: #1e293b;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+section {
+    background-color: white;
+    padding: 20px 40px;
+    margin-bottom: 10px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    width: 100%;
+    max-width: 550px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+button {
+    padding: 10px 20px;
+    margin: 5px;
+    border: none;
+    border-radius: 8px;
+    background-color: #3b82f6;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+button:hover {
+    background-color: #2563eb;
+}
+
+#boton-reiniciar {
+    background-color: #ef4444;
+}
+#boton-reiniciar:hover {
+    background-color: #dc2626;
+}
+
+/* popup */
+dialog {
+    border: none;
+    border-radius: 12px;
+    padding: 10px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    text-align: left; 
+}
+
+dialog::backdrop {
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(3px);
+}
+
+/* 
+Creamos un contenedor para el juego. Esto nos permite mostrar el boton de las reglas
+arriba a la derecha de la ventana del juego inclusive en pantallas grandes
+ */
+.contenedor-juego {
+    position: relative;
+    width: 100%;
+    max-width: 550px;  
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#boton-reglas {
+    position: absolute;
+    top: 10px;         
+    right: -100px;     
+    margin: 0;
+    z-index: 10;
+    background-color: #64748b;
+    padding: 8px 15px;
+    font-size: 0.9em;
+}
+
+#boton-reglas:hover {
+    background-color: #475569;
+}
+
+/* Regla extra para pantallas chicas (Celulares) */
+@media (max-width: 768px) {
+    #boton-reglas {
+        position: static;    
+        margin-bottom: 15px;
+    }
+}
