@@ -16,6 +16,21 @@ function iniciarJuego() {
 
     let botonReiniciar = document.getElementById('boton-reiniciar');
     botonReiniciar.addEventListener('click', reiniciarJuego);
+
+    // popup con las reglas
+    let popupReglas = document.getElementById('popup-reglas');
+    let botonReglas = document.getElementById('boton-reglas');
+    let botonCerrarReglas = document.getElementById('boton-cerrar-reglas');
+
+    // Abre el popup
+    botonReglas.addEventListener('click', () => {
+        popupReglas.showModal(); 
+    });
+
+    // Cierra el popup
+    botonCerrarReglas.addEventListener('click', () => {
+        popupReglas.close();
+    });
 }
 
 function seleccionarPersonajeJugador() {
@@ -61,7 +76,7 @@ function seleccionarPersonajeEnemigo(personajeJugador) {
     let spanPersonajeEnemigo = document.getElementById('personaje-enemigo');
     let personajeEnemigo = "";
 
-    // Si el personaje elegido es igual al nuestro vuelve repetir el codigo
+    // Si el personaje elejido es igual al nuestro vuelve repetir el codigo
     do {
         let numeroAleatorio = Math.floor(Math.random() * (4 - 1 + 1) + 1);
 
@@ -96,7 +111,7 @@ function ataqueBarrida() {
 }
 
 function funcionCombate() {
-    // Verificamos que se haya elegido un personaje antes de comenzar la batalla
+    // Verificamos que se haya elejido un personaje antes de comenzar la batalla
     let personajeJugador = document.getElementById('personaje-jugador').innerHTML;
     if (!personajeJugador) {
         alert('Primero debes seleccionar un personaje.');
@@ -120,14 +135,12 @@ function combate() {
         resultadoRound = "EMPATE 🤝";
     } 
     // Casos donde GANA el Jugador
-    else if (
-        (ataqueJugador === 'Patada' && ataqueEnemigo === 'Puño') ||
+    else if ((ataqueJugador === 'Patada' && ataqueEnemigo === 'Puño') ||
         (ataqueJugador === 'Puño' && ataqueEnemigo === 'Barrida') ||
-        (ataqueJugador === 'Barrida' && ataqueEnemigo === 'Patada')
-    ) {
-        resultadoRound = "GANASTE EL ROUND 🎉";
-        vidasEnemigo--; // Restamos vida al enemigo
-        spanVidasEnemigo.innerHTML = vidasEnemigo; 
+        (ataqueJugador === 'Barrida' && ataqueEnemigo === 'Patada')) {
+            resultadoRound = "GANASTE EL ROUND 🎉";
+            vidasEnemigo--; // Restamos vida al enemigo
+            spanVidasEnemigo.innerHTML = vidasEnemigo; 
     } 
     // Si no es empate ni gano el jugador, gano el enemigo
     else {
@@ -136,7 +149,7 @@ function combate() {
         spanVidasJugador.innerHTML = vidasJugador; 
     }
 
-    // Mostramos que ataque elegimos nosotros y que elegio la maquina
+    // Mostramos que ataque elejimos nosotros y que elejio la maquina
     sectionMensajes.innerHTML = `<p>Tu personaje atacó con <strong>${ataqueJugador}</strong>, el enemigo atacó con <strong>${ataqueEnemigo}</strong> - <strong>${resultadoRound}</strong></p>`;
 
     // Chequeamos si aun los jugadores tienen vidas
