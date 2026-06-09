@@ -22,20 +22,22 @@
             <div class="square" style="--i:2;"></div>
             <div class="square" style="--i:3;"></div>
             <div class="square" style="--i:4;"></div>
-
             <div class="container">
                 <div class="form">
                     <h2>Login</h2>
-                    <form>
+                    <form id="loginForm">
                         <div class="inputBox">
-                            <input type="text" placeholder="Username">
+                            <input type="text" id="username" placeholder="Username">
                         </div>
                         <div class="inputBox">
-                            <input type="password" placeholder="Password" />
+                            <input type="password" id="password" placeholder="Password" />
                         </div>
                         <div class="inputBox">
                             <input type="submit" value="Login" />
                         </div>
+                        
+                        <p id="mensaje" style="font-weight: 600; text-align: center; margin-bottom: 10px; height: 20px; transition: 0.3s;"></p>
+
                         <p class="forget">Forgot password ?
                             <a href="#">Click Here</a>
                         </p>
@@ -47,21 +49,39 @@
             </div>
         </div>
     </section>
-    <script>
-        document.getElementById("loginForm").addEventListener("submit", function(event) {
-            event.preventDefault(); // Evita que el formulario se envíe
-
-            const usuario = document.getElementById("username").value;
-            const password = document.getElementById("password").value;
-
-            if (usuario === "admin" && password === "1234"){
-                alert("Login correcto");
-            } else {
-                alert("Usuario o contraseña incorrectos");
-            }
-        });
-    </script>
 </body>
 </html>
 
+<script>
+    // Capturamos el formulario por su ID
+    const loginForm = document.getElementById('loginForm');
+    const mensaje = document.getElementById('mensaje');
+    const container = document.querySelector('.container');
 
+    // Cuando hacen clic en el botón Login
+    loginForm.addEventListener('submit', function(event) {
+        event.preventDefault(); 
+
+        // Capturamos los valores que ingresó el usuario
+        const user = document.getElementById('username').value;
+        const pass = document.getElementById('password').value;
+
+        // Validamos los datos ingresados
+        if (user.trim() === '' || pass.trim() === '') {
+            mensaje.style.color = '#FFFF99'; 
+            mensaje.textContent = 'Por favor, completa todos los campos';
+        } 
+        else {
+            // Mostramos mensaje de éxito
+            mensaje.style.color = '#99ff99'; // Verde suave
+            mensaje.textContent = `¡Bienvenido, ${user}!`;
+            
+            // Esperamos dos 2 segundos y limpiamos
+            setTimeout(() => {
+                document.getElementById('username').value = '';
+                document.getElementById('password').value = '';
+                mensaje.textContent = '';
+            }, 2000);
+        }
+    });
+</script>
