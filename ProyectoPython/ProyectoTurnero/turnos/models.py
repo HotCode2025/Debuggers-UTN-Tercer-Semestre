@@ -194,10 +194,16 @@ class Turno(models.Model):
     estado = models.CharField(max_length=20, choices=ESTADO_CHOICES, default=RESERVADO)
 
     class Meta:
-        unique_together = ("profesional", "establecimiento", "especialidad", "fecha", "hora")
+        constraints = [
+            models.UniqueConstraint(
+                fields=["profesional", "fecha", "hora"],
+                condition=models.Q(estado="RESERVADO"),
+                name="turno_reservado_unico",
+            )
+        ]
 
-        def __str__(self):
-            return f"Turno de {self.usuario} con {self.profesional} en {self.establecimiento} para {self.especialidad} el {self.fecha} a las {self.hora} - Estado: {self.estado}"
+    def __str__(self):
+        return f"Turno de {self.usuario} con {self.profesional} en {self.establecimiento} para {self.especialidad} el {self.fecha} a las {self.hora} - Estado: {self.estado}"
         
 
    

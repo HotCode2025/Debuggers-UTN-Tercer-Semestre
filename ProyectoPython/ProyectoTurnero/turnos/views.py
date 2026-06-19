@@ -5,6 +5,9 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from .permissions import EsMedico, EsPaciente
+from rest_framework_simplejwt.views import TokenObtainPairView
+from .serializers import LoginSerializer
+
 
 from .models import (
     Ciudad,
@@ -562,5 +565,7 @@ def medico_cancelar_turno(request, turno_id):
 
     return Response(TurnoSerializer(turno).data)
 
+class LoginView(TokenObtainPairView):
+    serializer_class = LoginSerializer
 
 

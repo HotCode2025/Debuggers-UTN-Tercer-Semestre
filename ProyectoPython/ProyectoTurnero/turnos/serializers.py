@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 from .models import(
     Ciudad,
@@ -68,3 +69,17 @@ class TurnoSerializer(serializers.ModelSerializer):
         ]
         read_only_fields = ["usuario","estado"]
         
+class LoginSerializer(TokenObtainPairSerializer):
+    def validate(self, attrs):
+        data = super().validate(attrs)
+
+        perfil = getattr(self.user, "perfil", None)
+
+        data["usuario"] = {
+            "id": self.user.id,
+            "username": self.user.username,
+            "email": self.user.email,
+            "rol": perfil.rol if perfil else None,
+        }
+
+        return data
