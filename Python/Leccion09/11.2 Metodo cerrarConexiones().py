@@ -29,7 +29,7 @@ class Conexion:
     @classmethod
     def obtenerPool(cls):
         """
-        Método interno (Patrón Singleton) para asegurarse de que 
+        Método interno (Patrón Singleton) para asegurarse de que
         el Pool se cree UNA SOLA VEZ.
         """
         # Si el pool no existe todavía, lo crea
