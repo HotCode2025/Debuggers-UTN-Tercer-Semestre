@@ -1,7 +1,11 @@
+"""Permisos por rol utilizados para proteger los endpoints REST."""
+
 from rest_framework.permissions import BasePermission
 
 from .models import PerfilUsuario
 
+# Permisos declarativos: cada vista indica el rol autorizado y DRF ejecuta
+# estas comprobaciones antes de entrar en la función del endpoint.
 class EsPaciente(BasePermission):
     message = "Esta accion requiere un perfil de paciente."
 
@@ -15,6 +19,8 @@ class EsMedico(BasePermission):
     def has_permission(self, request, view):
         perfil = getattr(request.user, "perfil", None)
 
+        # Además del rol, se exige la relación Profesional para evitar cuentas
+        # médicas incompletas que no podrían administrar una agenda.
         return(
             perfil is not None
             and perfil.rol == PerfilUsuario.MEDICO

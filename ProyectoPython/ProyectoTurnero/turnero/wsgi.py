@@ -1,11 +1,4 @@
-"""
-WSGI config for turnero project.
-
-It exposes the WSGI callable as a module-level variable named ``application``.
-
-For more information on this file, see
-https://docs.djangoproject.com/en/6.0/howto/deployment/wsgi/
-"""
+"""Aplicación WSGI para el despliegue tradicional de Django."""
 
 import os
 

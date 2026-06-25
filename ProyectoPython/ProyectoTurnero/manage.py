@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+"""Punto de entrada para ejecutar comandos administrativos de Django."""
 """Django's command-line utility for administrative tasks."""
 import os
 import sys

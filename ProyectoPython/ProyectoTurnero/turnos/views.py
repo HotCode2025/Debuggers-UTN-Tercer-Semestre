@@ -1,8 +1,9 @@
-from django.shortcuts import render
+"""Endpoints REST que conectan el frontend con los servicios del turnero."""
+
 from datetime import datetime
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from .permissions import EsMedico, EsPaciente
 from rest_framework_simplejwt.views import TokenObtainPairView
@@ -16,6 +17,7 @@ from .models import (
     Profesional,
     Turno,
     Disponibilidad,
+    PerfilUsuario,
 )
 
 from .serializers import (
@@ -25,6 +27,7 @@ from .serializers import (
     ProfesionalSerializer,
     TurnoSerializer,
     DisponibilidadSerializer,
+    RegistroPacienteSerializer,
 ) 
 
 from .services import (
@@ -48,6 +51,26 @@ from .services import (
     cancelar_turno_como_profesional,
 )
 
+# Registro público: el serializer valida los datos y crea de forma atómica
+# la cuenta de Django junto con su perfil de paciente.
+@api_view(["POST"])
+@permission_classes([AllowAny])
+def registrar_paciente(request):
+    serializer = RegistroPacienteSerializer(data=request.data)
+    serializer.is_valid(raise_exception=True)
+    usuario = serializer.save()
+
+    return Response(
+        {
+            "id": usuario.id,
+            "username": usuario.username,
+            "email": usuario.email,
+            "rol": PerfilUsuario.PACIENTE,
+        },
+        status=status.HTTP_201_CREATED,
+    )
+
+# Catálogos encadenados que alimentan el recorrido de reserva del frontend.
 @api_view(["GET"])
 def listar_ciudades(request):
     ciudades = Ciudad.objects.all().order_by("nombre")
@@ -58,6 +81,7 @@ def listar_ciudades(request):
 def listar_establecimientos(request):
     ciudad_id = request.query_params.get("ciudad_id")
 
+    # Se exige el nivel geográfico anterior para limitar la consulta.
     if not ciudad_id:
         return Response(
             {"error": "Debe enviar ciudad_id"},
@@ -127,6 +151,8 @@ def listar_profesionales(request):
     serializer = ProfesionalSerializer(profesionales, many=True)
     return Response(serializer.data)
 
+# Convierte los parámetros recibidos en objetos del dominio y devuelve las horas
+# disponibles ya formateadas para los controles del navegador.
 @api_view(["GET"])
 def listar_horarios_disponibles(request):
     profesional_id= request.query_params.get("profesional_id")
@@ -145,6 +171,7 @@ def listar_horarios_disponibles(request):
             status=status.HTTP_400_BAD_REQUEST,
         )
     try:
+        # Las conversiones se agrupan para responder con errores HTTP específicos.
         profesional = Profesional.objects.get(id=profesional_id)
         establecimiento = Establecimiento.objects.get(id=establecimiento_id)
         especialidad = Especialidad.objects.get(id=especialidad_id)
@@ -181,6 +208,7 @@ def listar_horarios_disponibles(request):
 
     return Response([horario.strftime("%H:%M")for horario in horarios])
 
+# Operaciones reservadas al paciente autenticado.
 @api_view(["POST"])
 @permission_classes([IsAuthenticated, EsPaciente])
 def reservar_turno_view(request):
@@ -229,6 +257,7 @@ def reservar_turno_view(request):
         )
 
     try:
+        # El paciente se obtiene del JWT, nunca del cuerpo enviado por el cliente.
         turno = reservar_turno(
             usuario=request.user,
             profesional=profesional,
@@ -284,6 +313,8 @@ def cancelar_turno_view(request, turno_id):
     serializer = TurnoSerializer(turno)
     return Response(serializer.data)
 
+# Consultas médicas: la cuenta autenticada se resuelve siempre a su entidad
+# Profesional para impedir que se consulte la agenda de otro médico.
 @api_view(["GET"])
 @permission_classes([IsAuthenticated,EsMedico])
 def medico_mis_turnos(request):
@@ -345,10 +376,14 @@ def medico_agenda_por_fecha(request):
     serializer = TurnoSerializer(turnos, many=True)
     return Response(serializer.data)
 
+# Administración de las franjas semanales del profesional. Las vistas convierten
+# tipos HTTP y los servicios aplican habilitación y superposición.
 @api_view(["GET"])
 @permission_classes([IsAuthenticated,EsMedico])
 def medico_mis_disponibilidades(request):
     try:
+        # JSON transporta estos valores como texto o número; aquí se normalizan
+        # antes de ejecutar las validaciones del dominio.
         profesional = obtener_profesional_de_usuario(request.user)
     except ValueError as error:
         return Response(
@@ -524,6 +559,7 @@ def medico_eliminar_disponibilidad(request,disponibilidad_id):
         )
     return Response(status=status.HTTP_204_NO_CONTENT)
 
+# Cambios de estado que solo puede realizar el profesional propietario del turno.
 @api_view(["POST"])
 @permission_classes([IsAuthenticated, EsMedico])
 def medico_marcar_turno_atendido(request, turno_id):
@@ -566,6 +602,8 @@ def medico_cancelar_turno(request, turno_id):
     return Response(TurnoSerializer(turno).data)
 
 class LoginView(TokenObtainPairView):
+    """Emite tokens JWT con los datos de perfil añadidos por LoginSerializer."""
+
     serializer_class = LoginSerializer
 
 

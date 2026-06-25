@@ -1,9 +1,14 @@
+"""Rutas funcionales de pacientes y profesionales."""
+
 from django.urls import path
 
 from . import views
 
 
+# Las rutas siguen el recorrido público, las acciones del paciente y el panel
+# médico. Los permisos específicos permanecen declarados en cada vista.
 urlpatterns = [
+    path("auth/registro/", views.registrar_paciente, name="registrar_paciente"),
     path("ciudades/", views.listar_ciudades, name="listar_ciudades"),
     path("establecimientos/", views.listar_establecimientos, name="listar_establecimientos"),
     path("especialidades/", views.listar_especialidades, name="listar_especialidades"),

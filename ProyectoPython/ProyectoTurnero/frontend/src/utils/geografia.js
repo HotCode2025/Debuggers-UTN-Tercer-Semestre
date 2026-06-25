@@ -1,0 +1,27 @@
+// Catálogo geográfico usado por los formularios de registro y búsqueda.
+export const mapaProvincias = {
+  "Buenos Aires": ["Avellaneda", "Quilmes", "Mar del Plata", "Bahía Blanca", "La Plata", "Lanús"],
+  "CABA": ["Palermo", "Belgrano", "Caballito", "Flores", "San Telmo", "Recoleta"],
+  "Catamarca": ["San Fernando del Valle", "Andalgalá"],
+  "Chaco": ["Resistencia", "Presidencia Roque Sáenz Peña"],
+  "Chubut": ["Comodoro Rivadavia", "Puerto Madryn", "Trelew"],
+  "Córdoba": ["Córdoba Capital", "Villa Carlos Paz", "Río Cuarto"],
+  "Corrientes": ["Corrientes Capital", "Goya"],
+  "Entre Ríos": ["Paraná", "Concordia", "Gualeguaychú"],
+  "Formosa": ["Formosa Capital", "Clorinda"],
+  "Jujuy": ["San Salvador de Jujuy", "San Pedro"],
+  "La Pampa": ["Santa Rosa", "General Pico"],
+  "La Rioja": ["La Rioja Capital", "Chilecito"],
+  "Mendoza": ["Mendoza Capital", "San Rafael", "Godoy Cruz"],
+  "Misiones": ["Posadas", "Puerto Iguazú", "Oberá"],
+  "Neuquén": ["Neuquén Capital", "San Martín de los Andes"],
+  "Río Negro": ["San Carlos de Bariloche", "Viedma", "Cipolletti"],
+  "Salta": ["Salta Capital", "San Ramón de la Nueva Orán"],
+  "San Juan": ["San Juan Capital", "Caucete"],
+  "San Luis": ["San Luis Capital", "Villa Mercedes"],
+  "Santa Cruz": ["Río Gallegos", "El Calafate"],
+  "Santa Fe": ["Rosario", "Santa Fe Capital", "Rafaela"],
+  "Santiago del Estero": ["Santiago del Estero Capital", "La Banda"],
+  "Tierra del Fuego": ["Ushuaia", "Río Grande"],
+  "Tucumán": ["San Miguel de Tucumán", "Yerba Buena"]
+}

@@ -1,6 +1,6 @@
-from django.contrib import admin
+"""Presentación y filtros de los modelos dentro del administrador de Django."""
 
-# Register your models here.
+from django.contrib import admin
 
 from .models import(
     Ciudad,
@@ -14,6 +14,8 @@ from .models import(
     Turno,
 )
 
+# Cada configuración prioriza filtros y búsquedas útiles para operar el sistema
+# sin recorrer manualmente todos los registros.
 @admin.register(Ciudad)
 class CiudadAdmin(admin.ModelAdmin):
     list_display = ("id","nombre","provincia")
@@ -39,9 +41,9 @@ class ProfesionalAdmin(admin.ModelAdmin):
 
 @admin.register(PerfilUsuario)
 class PerfilUsuarioAdmin(admin.ModelAdmin):
-    list_display = ("id", "usuario", "rol")
+    list_display = ("id", "usuario", "rol", "documento", "telefono", "ciudad")
     list_filter = ("rol",)
-    search_fields = ("usuario__username", "usuario__email")
+    search_fields = ("usuario__username", "usuario__email", "documento")
 
 
 @admin.register(Disponibilidad)

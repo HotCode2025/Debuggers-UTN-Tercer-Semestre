@@ -1,3 +1,5 @@
+"""Reglas de negocio para calcular horarios y administrar turnos y agendas."""
+
 from datetime import date, datetime, timedelta
 
 from .models import (
@@ -10,6 +12,8 @@ from .models import (
     EstablecimientoEspecialidad,
 )
 
+# Convierte las franjas semanales del médico en horas concretas para una fecha.
+# Los turnos ya reservados se excluyen antes de devolver el resultado.
 def obtener_horarios_disponibles(profesional,establecimiento,especialidad,fecha):
     dia_semana = fecha.weekday()
 
@@ -26,6 +30,7 @@ def obtener_horarios_disponibles(profesional,establecimiento,especialidad,fecha)
     horarios_disponibles = []
 
     for disponibilidad in disponibilidades:
+        # Se recorre la franja en intervalos de la duración configurada.
         inicio = datetime.combine(fecha, disponibilidad.hora_inicio)
         fin = datetime.combine(fecha, disponibilidad.hora_fin)
         duracion = timedelta(minutes=disponibilidad.duracion_turno_minutos)
@@ -49,118 +54,131 @@ def obtener_horarios_disponibles(profesional,establecimiento,especialidad,fecha)
 
     return horarios_disponibles
 
+# Reserva centralizada: valida fecha, día hábil y pertenencia del horario antes
+# de persistir. Toda interfaz que reserve debe pasar por esta función.
 def reservar_turno(usuario, profesional, establecimiento, especialidad, fecha, hora):
-   if fecha < date.today():
-       raise ValueError("No se pueden reservar turnos para fechas pasadas")
-   
-   if fecha.weekday() > 4:
-         raise ValueError("No se pueden reservar turnos para fines de semana")
-   
-   profesional_habilitado = ProfesionalEstablecimientoEspecialidad.objects.filter(
-       profesional=profesional,
-       establecimiento=establecimiento,
-       especialidad=especialidad
-   ).exists()
+    if fecha < date.today():
+        raise ValueError("No se pueden reservar turnos para fechas pasadas")
 
-   if not profesional_habilitado:
-            raise ValueError("El profesional no está habilitado para esta especialidad en este establecimiento")    
-   
-   horarios_disponibles = obtener_horarios_disponibles(
-       profesional=profesional,
-       establecimiento=establecimiento,
-       especialidad=especialidad,
-       fecha=fecha,
+    if fecha.weekday() > 4:
+        raise ValueError("No se pueden reservar turnos para fines de semana")
+
+    profesional_habilitado = ProfesionalEstablecimientoEspecialidad.objects.filter(
+        profesional=profesional,
+        establecimiento=establecimiento,
+        especialidad=especialidad
+    ).exists()
+
+    if not profesional_habilitado:
+        raise ValueError(
+            "El profesional no está habilitado para esta especialidad en este establecimiento"
+        )
+
+    # Volver a calcular evita confiar en un horario que el navegador pudo haber
+    # obtenido antes de que otro paciente realizara una reserva.
+    horarios_disponibles = obtener_horarios_disponibles(
+        profesional=profesional,
+        establecimiento=establecimiento,
+        especialidad=especialidad,
+        fecha=fecha,
     )
-   
-   if hora not in horarios_disponibles:
-         raise ValueError("El horario seleccionado no está disponible")
-   
-   turno = Turno.objects.create(
-       usuario=usuario,
-       profesional=profesional,
-       establecimiento=establecimiento,
-       especialidad=especialidad,
-       fecha=fecha,
-       hora=hora,
-       estado=Turno.RESERVADO
-   )
 
-   return turno
+    if hora not in horarios_disponibles:
+        raise ValueError("El horario seleccionado no está disponible")
 
+    turno = Turno.objects.create(
+        usuario=usuario,
+        profesional=profesional,
+        establecimiento=establecimiento,
+        especialidad=especialidad,
+        fecha=fecha,
+        hora=hora,
+        estado=Turno.RESERVADO
+    )
+
+    return turno
+
+# Consultas del recorrido de búsqueda: ciudad -> centro -> especialidad -> médico.
 def obtener_establecimientos_por_ciudad(ciudad):
-     return Establecimiento.objects.filter(ciudad=ciudad)
+    return Establecimiento.objects.filter(ciudad=ciudad)
 
 def obtener_especialidades_por_establecimiento(establecimiento):
-     especialidades_ids =EstablecimientoEspecialidad.objects.filter(
-          establecimiento=establecimiento
-     ).values_list("especialidad_id", flat=True)
+    especialidades_ids = EstablecimientoEspecialidad.objects.filter(
+        establecimiento=establecimiento
+    ).values_list("especialidad_id", flat=True)
 
-     return Especialidad.objects.filter(id__in=especialidades_ids)
+    return Especialidad.objects.filter(id__in=especialidades_ids)
 
 def obtener_profesionales_por_establecimiento_y_especialidad(
-          establecimiento,
-          especialidad
+    establecimiento,
+    especialidad
 ):
-     profesionales_ids = ProfesionalEstablecimientoEspecialidad.objects.filter(
-          establecimiento=establecimiento,
-          especialidad=especialidad,
-     ).values_list("profesional_id", flat=True)
+    profesionales_ids = ProfesionalEstablecimientoEspecialidad.objects.filter(
+        establecimiento=establecimiento,
+        especialidad=especialidad,
+    ).values_list("profesional_id", flat=True)
 
-     return Profesional.objects.filter(id__in=profesionales_ids)
+    return Profesional.objects.filter(id__in=profesionales_ids)
 
+# Consultas y acciones correspondientes al perfil paciente.
 def obtener_turnos_de_usuario(usuario):
-     return Turno.objects.filter(
-          usuario=usuario,
-          ).order_by("fecha", "hora")
+    return Turno.objects.filter(
+        usuario=usuario,
+    ).order_by("fecha", "hora")
 
 def obtener_turnos_activos_de_usuario(usuario):
-     return Turno.objects.filter (
-          usuario = usuario,
-          estado= Turno.RESERVADO,
-     ).order_by("fecha","hora")
+    return Turno.objects.filter(
+        usuario=usuario,
+        estado=Turno.RESERVADO,
+    ).order_by("fecha", "hora")
 
 
 def cancelar_turno(usuario, turno):
-     if turno.usuario != usuario:
-          raise ValueError("No podes cancelar un turno que pertenece a otro usuario.")
-     
-     if turno.estado != Turno.RESERVADO:
-          raise ValueError("Solo se pueden cancelar turnos reservados.")
-     
-     turno.estado = Turno.CANCELADO
-     turno.save()
+    if turno.usuario != usuario:
+        raise ValueError("No podes cancelar un turno que pertenece a otro usuario.")
 
-     return turno
+    if turno.estado != Turno.RESERVADO:
+        raise ValueError("Solo se pueden cancelar turnos reservados.")
 
+    # No se elimina el registro para conservar el historial de la atención.
+    turno.estado = Turno.CANCELADO
+    turno.save()
+
+    return turno
+
+# Resuelve la entidad Profesional asociada a la cuenta autenticada. Las demás
+# operaciones médicas dependen de esta comprobación.
 def obtener_profesional_de_usuario(usuario):
-     try: 
-          return usuario.perfil_profesional
-     except Profesional.DoesNotExist:
-          raise ValueError("El usuario no tiene un perfil profesional asociado.")
-     
+    try:
+        return usuario.perfil_profesional
+    except Profesional.DoesNotExist:
+        raise ValueError("El usuario no tiene un perfil profesional asociado.")
+
 def obtener_turnos_de_profesional(profesional):
-     return Turno.objects.filter(
-          profesional=profesional,
-     ).order_by("fecha","hora")
+    return Turno.objects.filter(
+        profesional=profesional,
+    ).order_by("fecha", "hora")
 
 def obtener_turnos_activos_de_profesional(profesional):
-     return Turno.objects.filter(
-          profesional=profesional,
-          estado=Turno.RESERVADO,
-     ).order_by("fecha","hora")
+    return Turno.objects.filter(
+        profesional=profesional,
+        estado=Turno.RESERVADO,
+    ).order_by("fecha", "hora")
 
 def obtener_turnos_de_profesional_por_fecha(profesional,fecha):
-     return Turno.objects.filter(
-          profesional=profesional,
-          fecha=fecha,
-          estado=Turno.RESERVADO,
-     ).order_by("hora")
+    return Turno.objects.filter(
+        profesional=profesional,
+        fecha=fecha,
+        estado=Turno.RESERVADO,
+    ).order_by("hora")
 
 def obtener_disponibilidades_de_profesional(profesional):
-     return Disponibilidad.objects.filter(
-          profesional = profesional,
-     ).order_by("dia_semana","hora_inicio")
+    return Disponibilidad.objects.filter(
+        profesional=profesional,
+    ).order_by("dia_semana", "hora_inicio")
 
+# Detecta cualquier cruce entre dos franjas del mismo médico, sede, especialidad
+# y día. En edición puede excluirse la propia disponibilidad.
 def existe_disponibilidad_superpuesta(
           profesional,
           establecimiento,
@@ -185,6 +203,8 @@ def existe_disponibilidad_superpuesta(
           hora_fin__gt=hora_inicio,
      ).exists()
 
+# Alta y edición de la agenda semanal. Ambas operaciones comparten las mismas
+# reglas de rango horario, habilitación profesional y superposición.
 def crear_disponibilidad_profesional(
           profesional,
           establecimiento,
@@ -273,6 +293,8 @@ def modificar_disponibilidad_profesional(
          raise ValueError("Ya existe una disponibilidad superpuesta para ese día y horario.")
     
     
+    # La actualización se aplica únicamente después de completar todas las
+    # validaciones, evitando dejar el objeto parcialmente modificado.
     disponibilidad.establecimiento = establecimiento
     disponibilidad.especialidad = especialidad
     disponibilidad.dia_semana=dia_semana
@@ -283,32 +305,33 @@ def modificar_disponibilidad_profesional(
 
     return disponibilidad
 
+# Operaciones del médico sobre recursos que ya existen.
 def eliminar_disponibilidad_profesional(disponibilidad, profesional):
     if disponibilidad.profesional != profesional:
-         raise ValueError("No Podes eliminar una disponibilidad de otro profesional")
-    
+        raise ValueError("No Podes eliminar una disponibilidad de otro profesional")
+
     disponibilidad.delete()
 
 def marcar_turno_como_atendido(turno,profesional):
-     if turno.profesional != profesional:
-          raise ValueError("No podes modificar un turno de otro profesional.")
-     
-     if turno.estado != Turno.RESERVADO:
-          raise ValueError("Solo un turno reservado puede marcarse como atendido.")
-     
-     turno.estado = Turno.ATENDIDO
-     turno.save(update_fields=["estado"])
+    if turno.profesional != profesional:
+        raise ValueError("No podes modificar un turno de otro profesional.")
 
-     return turno
+    if turno.estado != Turno.RESERVADO:
+        raise ValueError("Solo un turno reservado puede marcarse como atendido.")
+
+    turno.estado = Turno.ATENDIDO
+    turno.save(update_fields=["estado"])
+
+    return turno
 
 def cancelar_turno_como_profesional(turno,profesional):
-     if turno.profesional != profesional:
-          raise ValueError("No podes cancelar un turno de otro profesional.")
-     
-     if turno.estado != Turno.RESERVADO:
-          raise ValueError("Solo se pueden cancelar turnos reservados.")
-     
-     turno.estado = Turno.CANCELADO
-     turno.save(update_fields=["estado"])
+    if turno.profesional != profesional:
+        raise ValueError("No podes cancelar un turno de otro profesional.")
 
-     return turno
+    if turno.estado != Turno.RESERVADO:
+        raise ValueError("Solo se pueden cancelar turnos reservados.")
+
+    turno.estado = Turno.CANCELADO
+    turno.save(update_fields=["estado"])
+
+    return turno

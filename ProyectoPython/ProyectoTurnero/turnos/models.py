@@ -1,7 +1,10 @@
+"""Modelos del dominio: perfiles, centros, profesionales y turnos médicos."""
+
 from django.db import models
 from django.contrib.auth.models import User
 
-# Create your models here.
+# Extiende la cuenta estándar de Django con el rol y los datos personales
+# necesarios para identificar al paciente dentro del turnero.
 class PerfilUsuario(models.Model):
     PACIENTE = "PACIENTE"
     MEDICO = "MEDICO"
@@ -22,6 +25,12 @@ class PerfilUsuario(models.Model):
         choices=ROL_CHOICES,
         default=PACIENTE
     )
+    tipo_documento = models.CharField(max_length=20, blank=True)
+    documento = models.CharField(max_length=30, blank=True, null=True, unique=True)
+    genero = models.CharField(max_length=30, blank=True)
+    provincia = models.CharField(max_length=100, blank=True)
+    ciudad = models.CharField(max_length=100, blank=True)
+    telefono = models.CharField(max_length=30, blank=True)
 
     def __str__(self):
         return f"{self.usuario.username} - {self.rol}"
@@ -34,6 +43,7 @@ class Ciudad(models.Model):
     def __str__(self):
         return f"{self.nombre}, {self.provincia}"
 
+# Catálogo geográfico y asistencial usado para construir la búsqueda del paciente.
 class Establecimiento(models.Model):
     PUBLICO = "PUBLICO"
     PRIVADO= "PRIVADO"
@@ -56,7 +66,8 @@ class Especialidad(models.Model):
 
     def __str__(self):
         return self.nombre
-    
+
+# Tabla intermedia que determina qué especialidades ofrece cada establecimiento.
 class EstablecimientoEspecialidad(models.Model):
     establecimiento = models.ForeignKey(
         Establecimiento,
@@ -89,7 +100,8 @@ class Profesional(models.Model):
 
     def __str__(self):
         return f"{self.nombre} {self.apellido}"
-    
+
+# Habilitación concreta de un médico para atender una especialidad en una sede.
 class ProfesionalEstablecimientoEspecialidad(models.Model):
     profesional = models.ForeignKey(
         Profesional,
@@ -128,6 +140,8 @@ class Disponibilidad(models.Model):
         (VIERNES, "Viernes"),
     ]
 
+    # Una disponibilidad representa una franja semanal recurrente. La fecha
+    # concreta se elige después, cuando el paciente consulta los horarios.
     profesional = models.ForeignKey(
         Profesional,
         on_delete=models.CASCADE,
@@ -165,6 +179,8 @@ class Turno(models.Model):
         (ATENDIDO, "Atendido"),
     ]
 
+    # El turno conserva las relaciones completas para poder consultar el
+    # historial aunque se acceda desde el perfil del paciente o del médico.
     usuario = models.ForeignKey(
         'auth.User',
         on_delete=models.CASCADE,
@@ -194,6 +210,8 @@ class Turno(models.Model):
     estado = models.CharField(max_length=20, choices=ESTADO_CHOICES, default=RESERVADO)
 
     class Meta:
+        # Solo bloquea duplicados mientras el turno está reservado. Al cancelarlo,
+        # el horario vuelve a quedar disponible para una nueva reserva.
         constraints = [
             models.UniqueConstraint(
                 fields=["profesional", "fecha", "hora"],

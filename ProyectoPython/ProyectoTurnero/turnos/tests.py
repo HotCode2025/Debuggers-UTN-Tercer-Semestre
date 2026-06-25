@@ -1,6 +1,4 @@
-from django.test import TestCase
-
-# Create your tests here.
+"""Pruebas de reglas de negocio, autenticación y permisos de la API."""
 
 from datetime import date, time, timedelta
 
@@ -29,6 +27,7 @@ from .services import (
 )
 
 
+# Genera una fecha futura estable para que los tests no dependan del día actual.
 def proximo_dia_semana(dia_semana):
     hoy = date.today()
     diferencia = (dia_semana - hoy.weekday()) % 7
@@ -37,7 +36,10 @@ def proximo_dia_semana(dia_semana):
 
 
 class TurnoServiceTests(TestCase):
+    """Ejercita el cálculo de horarios y las transiciones del turno."""
+
     def setUp(self):
+        # Escenario compartido: un médico habilitado, una franja y un paciente.
         self.usuario = User.objects.create_user(
             username="paciente_test",
             password="clave123",
@@ -176,6 +178,8 @@ class TurnoServiceTests(TestCase):
         self.assertEqual(nuevo_turno.estado, Turno.RESERVADO)
 
 class AutenticacionYPermisosAPITests(APITestCase):
+    """Valida registro, JWT y separación de permisos entre perfiles."""
+
     def setUp(self):
         self.paciente = User.objects.create_user(
             username="paciente_api",
@@ -218,6 +222,51 @@ class AutenticacionYPermisosAPITests(APITestCase):
         self.assertIn("access", respuesta.data)
         self.assertIn("refresh", respuesta.data)
         self.assertEqual(respuesta.data["usuario"]["rol"], PerfilUsuario.PACIENTE)
+
+    def test_registro_crea_usuario_y_perfil_paciente(self):
+        respuesta = self.client.post(
+            reverse("registrar_paciente"),
+            {
+                "username": "juan_perez_registro",
+                "nombre": "Juan",
+                "apellido": "Perez",
+                "tipo_documento": "DNI",
+                "documento": "40111222",
+                "genero": "Masculino",
+                "provincia": "Cordoba",
+                "ciudad": "Cordoba Capital",
+                "telefono": "3515551234",
+                "email": "juan.registro@test.com",
+                "password": "ClaveSegura123!",
+            },
+            format="json",
+        )
+
+        self.assertEqual(respuesta.status_code, status.HTTP_201_CREATED)
+        usuario = User.objects.get(username="juan_perez_registro")
+        self.assertTrue(usuario.check_password("ClaveSegura123!"))
+        self.assertEqual(usuario.perfil.rol, PerfilUsuario.PACIENTE)
+        self.assertEqual(usuario.perfil.documento, "40111222")
+
+    def test_registro_rechaza_documento_repetido(self):
+        self.paciente.perfil.documento = "40111222"
+        self.paciente.perfil.save(update_fields=["documento"])
+
+        respuesta = self.client.post(
+            reverse("registrar_paciente"),
+            {
+                "username": "paciente_nuevo",
+                "nombre": "Paciente",
+                "apellido": "Repetido",
+                "tipo_documento": "DNI",
+                "documento": "40111222",
+                "email": "otro@test.com",
+                "password": "ClaveSegura123!",
+            },
+            format="json",
+        )
+
+        self.assertEqual(respuesta.status_code, status.HTTP_400_BAD_REQUEST)
 
     def test_paciente_no_puede_acceder_a_ruta_medica(self):
         self.client.force_authenticate(user=self.paciente)

@@ -1,3 +1,5 @@
+"""Configuración de la aplicación Django ``turnos``."""
+
 from django.apps import AppConfig
 
 
